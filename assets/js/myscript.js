@@ -3,28 +3,43 @@ $(document).ready(function () {
     var sourceDB;
     var destDB;
     var sourceTable;
-    var mode = 'over';
+    var mode ;
 
     $('#list li').on('click', function(){
-    sourceDB = $(this).text();
-    makeAjaxCallSDB(sourceDB);
+        sourceDB = $(this).text();
+        makeAjaxCallSDB(sourceDB);
     });
 
     $('#Tables').on('click','li', function(){
-    sourceTable = $(this).text();
+        sourceTable = $(this).text();
     });    
 
     $('#myForm input').on('change', function() {
         mode = $('#myForm input ').val(); 
             alert(sourceDB+" "+sourceTable+" "+mode);
     });
+    
     $('#list2 li').on('click', function(){
-    destDB = $(this).text();
+        destDB = $(this).text();
+    });
+    
+    $('#SubButton').on('click',function(){
+        alert("working");
+        makeCompleteAjax(sourceDB,sourceTable,mode,destDB);
+
     });
 
 });
 	
-
+function makeCompleteAjax(sDB,sTable,md,dDB)
+{
+    $.post("Extract.php",
+        {
+            sourceDB    : sDB, 
+            sourceTable : sTable,
+            mode
+        })
+}
 
 function makeAjaxCallSDB(sourceDB)
 {
