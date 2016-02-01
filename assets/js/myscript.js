@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('#TablesButton').hide();
     var sourceDB;
+    var destDB;
     var sourceTable;
     var mode = 'over';
 
@@ -17,6 +18,10 @@ $(document).ready(function () {
         mode = $('#myForm input ').val(); 
             alert(sourceDB+" "+sourceTable+" "+mode);
     });
+    $('#list2 li').on('click', function(){
+    destDB = $(this).text();
+    });
+
 });
 	
 
