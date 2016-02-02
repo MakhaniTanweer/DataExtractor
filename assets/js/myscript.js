@@ -15,8 +15,7 @@ $(document).ready(function () {
     });    
 
     $('#myForm input').on('change', function() {
-        mode = $('#myForm input ').val(); 
-            alert(sourceDB+" "+sourceTable+" "+mode);
+        mode = $('#myForm input ').val();
     });
     
     $('#list2 li').on('click', function(){
@@ -24,22 +23,50 @@ $(document).ready(function () {
     });
     
     $('#SubButton').on('click',function(){
-        alert("working");
         makeCompleteAjax(sourceDB,sourceTable,mode,destDB);
-
     });
 
 });
-	
+
 function makeCompleteAjax(sDB,sTable,md,dDB)
 {
-    $.post("Extract.php",
-        {
-            sourceDB    : sDB, 
+    //Establish connection to php script
+    $.ajax({
+        url: 'extract.php',
+        type: 'POST',
+        data: {
+            sourceDB    : sDB,
             sourceTable : sTable,
-            mode
-        })
+            mode        : md,
+            destDB      : dDB
+            }
+    }).done(function(data) { console.log(data); })
+        .fail(function() { alert("error");})
+        .always(function(data)
+        {
+            var image;
+            image = document.createElement("img");
+
+            if (data == "Success")
+            {
+                image.src = "assets/img/success.png";
+                alert(data);
+            }
+            else
+            {
+                image.src = "assets/img/failure.png";
+                alert(data);
+            }
+            var src = document.getElementById("imgparent");
+            src.appendChild(image);
+
+            $('html, body').animate({
+                scrollTop: $("#lastContainer").offset().top
+            }, 1000);
+        }
+        );
 }
+
 
 function makeAjaxCallSDB(sourceDB)
 {
