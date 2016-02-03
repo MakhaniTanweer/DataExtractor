@@ -1,5 +1,8 @@
 $(document).ready(function () {
+    
     $('#TablesButton').hide();
+    populateDatabaseLists('#list');
+    populateDatabaseLists('#list2');
     var sourceDB;
     var destDB;
     var sourceTable;
@@ -27,6 +30,25 @@ $(document).ready(function () {
     });
 
 });
+
+function populateDatabaseLists(ids)
+{
+    $.ajax({
+        url:'Databases.php',
+        type: 'POST',
+    }).done(function(data) {console.log(data)})
+      .fail(function(data) {alert("error");})
+      .success(function(data){
+        var stringtext = "";
+        alert();
+        for(var i =0;i<DBs.length;i++){
+            alert(data[i]);
+        }
+        $("#list ul").append(stringtext);
+        $("#list2 ul").append(stringtext);
+      })
+        
+}
 
 function makeCompleteAjax(sDB,sTable,md,dDB)
 {
