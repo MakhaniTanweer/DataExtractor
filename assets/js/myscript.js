@@ -1,8 +1,7 @@
 $(document).ready(function () {
     
     $('#TablesButton').hide();
-    populateDatabaseLists('#list');
-    populateDatabaseLists('#list2');
+    populateDatabaseLists();
     var sourceDB;
     var destDB;
     var sourceTable;
@@ -31,21 +30,25 @@ $(document).ready(function () {
 
 });
 
-function populateDatabaseLists(ids)
+function populateDatabaseLists()
 {
+    var start_li = '<li><a>';
+    var end_li   = '</a></li>';
+    var output = "";
     $.ajax({
         url:'Databases.php',
         type: 'POST',
     }).done(function(data) {console.log(data)})
       .fail(function(data) {alert("error");})
       .success(function(data){
-        var stringtext = "";
-        alert();
-        for(var i =0;i<DBs.length;i++){
-            alert(data[i]);
+        var recievedData = JSON.parse(data);
+        for(var i =0;i<recievedData.length;i++){
+            if (recievedData[i] != "cdcol" && recievedData[i] != "information_schema" && recievedData[i] != "mysql" && recievedData[i] != "performance_schema" && recievedData[i] != "phpmyadmin" && recievedData[i] != "test" && recievedData[i] != "test" && recievedData[i] != "webauth")
+            output += start_li+recievedData[i]+end_li;
         }
-        $("#list ul").append(stringtext);
-        $("#list2 ul").append(stringtext);
+
+        $("#list ul").append(output);
+        $("#list2 ul").append(output);
       })
         
 }
