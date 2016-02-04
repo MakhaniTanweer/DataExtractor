@@ -7,24 +7,25 @@ $(document).ready(function () {
     var sourceTable;
     var mode ;
 
-    $('#list li').on('click', function(){
+    $(document).on('click', '#list li', function(event)
+    {
         sourceDB = $(this).text();
         makeAjaxCallSDB(sourceDB);
     });
 
-    $('#Tables').on('click','li', function(){
+    $(document).on('click','#Tables li', function(){
         sourceTable = $(this).text();
     });    
 
-    $('#myForm input').on('change', function() {
+    $(document).on('change','#myForm input', function() {
         mode = $('#myForm input ').val();
     });
-    
-    $('#list2 li').on('click', function(){
+
+    $(document).on('click', function(){
         destDB = $(this).text();
     });
     
-    $('#SubButton').on('click',function(){
+    $(document).on('click','#SubButton',function(){
         makeCompleteAjax(sourceDB,sourceTable,mode,destDB);
     });
 
