@@ -7,6 +7,8 @@ $(document).ready(function () {
     var sourceTable;
     var mode ;
 
+    //asasaiaosnaoisnspiasnipsdfbasfoi;
+
     $(document).on('click', '#list li', function(event)
     {
         sourceDB = $(this).text();
